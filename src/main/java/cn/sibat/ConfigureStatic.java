@@ -1,0 +1,96 @@
+package cn.sibat;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+
+/**
+ * 配置管理，静态版
+ * Created by kong on 2016/9/29.
+ */
+public class ConfigureStatic {
+    private static Properties prop = new Properties();
+
+    static  {
+        try {
+            InputStream in = ConfigureManager.class.getClassLoader().getResourceAsStream("config.properties");
+            prop.load(in);
+        } catch (Exception e) {
+            System.out.println("加载配置文件出错");
+        }
+    }
+
+    /**
+     * 获取配置key对应的value
+     * @param key
+     * @return
+     */
+    public static String getProperty(String key) {
+        return prop.getProperty(key);
+    }
+
+    /**
+     * 获取对应配置整数类型值
+     * 没有对应的key返回0
+     * @param key
+     * @return
+     */
+    public static Integer getInteger(String key){
+        String value = getProperty(key);
+        try{
+            return Integer.parseInt(value);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    /**
+     * 获取boolean类型的配置值
+     * 没有对应的key返回false
+     * @param key
+     * @return
+     */
+    public static Boolean getBoolean(String key){
+        String value = getProperty(key);
+        try{
+            return Boolean.valueOf(value);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 获取Long类型的配置值
+     * 没有对应的值返回0
+     * @param key
+     * @return
+     */
+    public static Long getLong(String key){
+        String value = getProperty(key);
+        try{
+            return Long.valueOf(value);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0L;
+    }
+
+    /**
+     * 获取Double类型的配置值
+     * 没有对应的key返回0.0
+     * @param key
+     * @return
+     */
+    public static Double getDouble(String key){
+        String value = getProperty(key);
+        try{
+            return Double.valueOf(value);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+}

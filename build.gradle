@@ -1,0 +1,28 @@
+group 'cn.sibat'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+targetCompatibility = 1.7
+sourceCompatibility = 1.7
+
+jar{
+    manifest{
+        attributes(
+            "Main-Class":"cn.sibat.PoiCollect","Implementation-Title":"Gradle"
+        )
+    }
+
+    into('lib'){
+        from configurations.runtime
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.jsoup:jsoup:1.9.2'
+}
